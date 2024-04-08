@@ -1,66 +1,44 @@
 import React, { useState } from 'react';
 import logo from '../assets/White Logo.png';
-import Close from '../assets/close.svg';
-import Menu from '../assets/Group 2.svg';
+import { HiOutlineMenu } from "react-icons/hi";
+import { GrClose } from "react-icons/gr";
 
 
-const Header = () => {
+const Navbar = () => {
+
   const [open, setOpen] = useState(false);
 
-  const menuLink = [
-
-    {
-        name:"HOME",
-        link:"/"
-    },
-    {
-      name: "SERVICES",
-      link: "/" 
-    },
-    {
-      name: "ABOUT US",
-      link: "/"
-    },
-    {
-      name: "CONTACT US",
-      link: "/"
-    },
-    {
-      name: "CAREERS",
-      link: "/" 
-    }
-  ];
-
+  const handleOpen = () => {
+    setOpen(!open);
+  }
 
   return (
-    <header className="bg-[#6B3CC9] w-full h-[70px] md:flex md:h-[70px] items-center justify-between relative ">
-      <img
-        src={logo}
-        alt='logo'
-        className='px-[3%] md:pb-4 pt-3.5 md:ml-0 flex justify-center items-center xl:h-[100%] md:h-[80%] h-[70%]'
-      />
-      <img
-        src={open ? Close : Menu}
-        className="z-100 absolute top-7 right-5 cursor-pointer md:hidden w-10 mt-[-10px]" onClick={() => setOpen(!open)} alt="" />
+    <div className='w-screen md:h-[77px] bg-primary text-white relative'>
+      <div className='flex justify-between items-center max-w-[90%] mx-auto py-[26px] px-[20px] '>
+        <img className='h-[25px] width-[25px]'  src={logo} alt="Logo" />
+        <ul className='md:flex gap-[28px] uppercase items-center font-inter text-[14px] hidden font-medium font-primary'>
+          <li className='cursor-pointer'>Services</li>
+          <li className='cursor-pointer'>About us</li>
+          <li className='cursor-pointer'>Contact us</li>
+          <li className='cursor-pointer'>Careers</li>
+        </ul>
+        <div className='cursor-pointer md:hidden' onClick={handleOpen}>
+          <HiOutlineMenu size={35} width={40} height={31} />
+        </div>
+        <ul className={` font-primary font-medium items-start p-6 uppercase gap-8 fixed  left-0 bg-white text-black w-screen flex flex-col duration-300 z-10  ease-in-out md:hidden ${open ? 'top-0' : 'top-[-450px]'}`}>
+          <li className='cursor-pointer'>Home</li>
+          <li className='cursor-pointer'>Services  </li>
+          <li className='cursor-pointer'>About us</li>
+          <li className='cursor-pointer'>Contact us</li>
+          <li className='cursor-pointer'>Careers</li>
+          <div className='absolute cursor-pointer md:hidden right-5 top-6' onClick={handleOpen}>
+            <GrClose width={40} size={25} height={31} />
+          </div>
+        </ul>
 
-<div className={`md:flex md:h-10 my-3 px-3 py-4 w-full bg-white md:bg-transparent lg:bg-transparent flex md:flex-row flex-col justify-center md:justify-end md:mx-0 lg:mx-[70px] xl:mx-[50px] md:place-items-center place-items-start duration-100 ease-linear bg-gradient-to-b from-light-grey to-slate-400 md:bg-gradient-to-b md:from-slate-950/0 md:to-slate-900/0 ${!open ? "hidden md:flex" : "block md:left-0"}`}>
-  <ul className='md:flex md:gap-2 lg:gap-0 xl:gap-8 md:px-2 text-start items-center justify-center'>
-    {menuLink.map((link, index) => (
-      <li key={index} className={`lg:ml-4 md:ml-4 text-xl xl:text-[17px] lg:text-[16px] text-white md:text-[15px] text-[15.5px] font-medium lg:place-items-end md:px-0.5 py-3 cursor-pointer rounded-2xl ${open ? "text-black" : ""}`}>
-          <a href={link.link}>{link.name}</a>
-      </li>
-    ))}
-  </ul>
-</div>
-
-
-
-
-
-
-
-    </header>
+      </div>
+    </div>
   )
 }
 
-export default Header;
+export default Navbar
